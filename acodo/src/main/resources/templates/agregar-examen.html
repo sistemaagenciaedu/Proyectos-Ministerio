@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <link rel="stylesheet" th:href="@{/css/crear-examen/estilostablasexamenes.css}">
+   <link rel="stylesheet" th:href="@{/css/crear-examen/formulario-examen.css}">
+   <link rel="stylesheet" th:href="@{/css/general/botones.css}">
+   <link rel="stylesheet" th:href="@{/css/crear-examen/agregar-examen.css}">
+   
+
+    <title>Codo a Codo 4.0</title>
+    <script>
+        let hoy =new Date()
+        document.write(hoy)       
+       
+    </script>
+    
+</head>
+<body>
+    
+   <div class="container-examen">
+       
+    <div id="lista-examenes" class="lista-examenes"></div>
+    <!-- <form  onsubmit="return enviar()" method="post" th:object="${mexamen}">
+        
+    <label for="titulo">Titulo</label>
+    <input type="text" th:field="*{titulo}" id="titulo">
+    <input type="submit" value="guardar">
+    </form> -->
+    <div id="form-cargar-exa" class="form-cargar-exa"></div>
+   </div>
+    
+    <script >
+
+
+
+function listarExamenes(){
+
+    $("#lista-examenes").load("/examen/listaexamenes");
+
+}
+function agregarFormu(){
+
+    $("#form-cargar-exa").load("/examen/formularioexamen");
+
+}
+// Guarda examenes o los edita
+function guardarexamenoeditar(){
+    var titulo2=document.getElementById("titulo-examen").value
+    var id2=document.getElementById("id-examen").value
+    const mexamen={
+        titulo:titulo2,
+        id:id2      
+    }
+    console.log("entro al ajax")
+    console.log(mexamen)
+    $.ajax({
+        type:'post',
+        url:'/examen/save',
+        data:mexamen,
+        
+        success:function(resp){
+            agregarFormu();
+            listarExamenes();
+        }
+    });
+  return false;
+    
+}
+// Emilina examenes
+function eliminar(id1){
+    
+
+    $.ajax({
+        type:'get',
+        url:'/examen/delete?id='+id1,
+        data:null,
+        success:function(resp){
+            listarExamenes();
+        }
+    });
+    return false
+    
+}
+
+function editar(id1){
+    
+
+    $("#form-cargar-exa").load("/examen/formularioexamen?id="+id1);
+  
+
+}
+
+
+
+// Agregar la lista de examenes y el formulario de guardar
+listarExamenes();
+agregarFormu();
+ </script>
+</body>
+
+</html>

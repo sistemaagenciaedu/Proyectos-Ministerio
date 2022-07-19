@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/crear-examen/estilostablasexamenes.css}">
+    <link rel="stylesheet" th:href="@{/css/crear-examen/formulario-examen.css}">
+    <link rel="stylesheet" th:href="@{/css/general/botones.css}">
+    <link rel="stylesheet" th:href="@{/css/crear-examen/agregar-examen.css}">
+
+
+    <title>Codo a Codo 4.0</title>
+    <script>
+        let hoy = new Date()
+        document.write(hoy)
+
+    </script>
+
+</head>
+
+<body>
+
+    <input type="number" th:value="${idMateria}" id="idMateria" readonly placeholder="Campo no editable">
+    <div class="container-materias">
+
+        <div id="lista-preguntas" class="lista-materias"></div>
+
+        <div id="form-cargar-preguntas" class="form-cargar-materias"></div>
+    </div>
+
+    <script>
+
+
+
+        function listarPreguntas() {
+
+            $("#lista-preguntas").load("/pregunta/listapreguntas");
+
+        }
+        function agregarFormu() {
+
+            $("#form-cargar-preguntas").load("/pregunta/formulariopregunta");
+
+        }
+        // Guarda examenes o los edita
+        function guardarpreguntaeditar() {
+            let id = document.getElementById("id").value
+            let idMateria = document.getElementById("idMateria").value
+            let tienePortada = document.getElementById("tienePortada").value
+            let formatoPortada = document.getElementById("formatoPortada").value
+            let audioP = document.getElementById("audioP").value
+            let imagenP = document.getElementById("imagenP").value
+            let videoP = document.getElementById("videoP").value
+            let enunciado = document.getElementById("enunciado").value
+            let formatoRespuesta = document.getElementById("formatoRespuesta").value
+            let pos1 = document.getElementById("pos1").value
+            let pos2 = document.getElementById("pos2").value
+            let pos3 = document.getElementById("pos3").value
+            let pos4 = document.getElementById("pos4").value
+            let pos5 = document.getElementById("pos5").value
+            let pos6 = document.getElementById("pos6").value
+            let pos7 = document.getElementById("pos7").value
+            let pos8 = document.getElementById("pos8").value
+            let correcta = document.getElementById("correcta").value
+
+
+
+            console.log("entro al ajax")
+            $.ajax({
+                type: 'post',
+                url: '/pregunta/save',
+                data: {
+                    id,
+                    idMateria,
+                    tienePortada,
+                    formatoPortada,
+                    videoP,
+                    imagenP,
+                    audioP,
+                    enunciado,
+                    formatoRespuesta,
+                    pos1,
+                    pos2,
+                    pos3,
+                    pos4,
+                    pos5,
+                    pos6,
+                    pos7,
+                    pos8,
+                    correcta
+                },
+
+
+                success: function (resp) {
+                    id=""
+                    tienePortada=""
+                    formatoPortada=""
+                    videoP=""
+                    imagenP=""
+                    audioP=""
+                    enunciado=""
+                    formatoRespuesta=""
+                    pos1=""
+                    pos2=""
+                    pos3=""
+                    pos4=""
+                    pos5=""
+                    pos6=""
+                    pos7=""
+                    pos8=""
+                    correcta=""
+                    agregarFormu();
+                    listarPreguntas()
+                }
+            });
+            return false;
+
+        }
+        // Emilina examenes
+        function eliminar(id1) {
+
+
+            $.ajax({
+                type: 'get',
+                url: '/materia/delete?id=' + id1,
+                data: null,
+                success: function (resp) {
+                    listarPreguntas()
+                }
+            });
+            return false
+
+        }
+        function editar(id1) {
+
+
+            $("#form-cargar-materias").load("/materia/formulariomateria?id=" + id1);
+
+
+        }
+
+
+        // Agregar la lista de examenes y el formulario de guardar
+        listarPreguntas()
+        agregarFormu();
+    </script>
+</body>
+
+</html>

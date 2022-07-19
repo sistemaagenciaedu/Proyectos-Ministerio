@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <link rel="stylesheet" th:href="@{/css/crear-examen/estilostablasexamenes.css}">
+   <link rel="stylesheet" th:href="@{/css/crear-examen/formulario-examen.css}">
+   <link rel="stylesheet" th:href="@{/css/general/botones.css}">
+   <link rel="stylesheet" th:href="@{/css/crear-examen/agregar-examen.css}">
+   <link rel="stylesheet" href="/src/main/resources/static/css/crear-examen/agregar-examen.css">
+
+    <title>Codo a Codo 4.0</title>
+    <script>
+        let hoy =new Date()
+        document.write(hoy)       
+       
+    </script>
+    
+</head>
+<body>
+ <button class="btn-1 primary font-whithe">jorge</button>
+ <button  class="btn-1 secondary font-whithe">jorge</button>
+   <input type="number" th:value="${idExamen}" id="id-examen" readonly placeholder="Campo no editable" >
+   <div class="container-materias">
+       
+    <div id="lista-materias" class="lista-materias"></div>
+    <!-- <form  onsubmit="return enviar()" method="post" th:object="${mexamen}">
+        
+    <label for="titulo">Titulo</label>
+    <input type="text" th:field="*{titulo}" id="titulo">
+    <input type="submit" value="guardar">
+    </form> -->
+    <div id="form-cargar-materias" class="form-cargar-materias"></div>
+   </div>
+    
+    <script >
+
+
+
+function listarMaterias(){
+
+    $("#lista-materias").load("/materia/listamaterias");
+
+}
+function agregarFormu(){
+
+    $("#form-cargar-materias").load("/materia/formulariomateria");
+
+}
+// Guarda examenes o los edita
+function guardarmateriaeditar(){
+    let nombre2=document.getElementById("nombre-materia").value
+    let id2=document.getElementById("id-materia").value
+    let cp=document.getElementById("cantPreguntas-materia").value
+    let idexa=document.getElementById("id-examen").value
+    console.log(nombre2)
+    console.log(id2)
+    console.log(cp)
+    
+    
+    console.log("entro al ajax")
+    $.ajax({
+        type:'post',
+        url:'/materia/save',
+        data:{
+            idexamen:idexa,id:id2, cantPreguntas:cp,nombre:nombre2
+        } ,
+        
+        
+        success:function(resp){
+            nombre2=""
+            id2=""
+            cp=""
+            agregarFormu();
+            listarMaterias();
+        }
+    });
+  return false;
+    
+}
+// Emilina examenes
+function eliminar(id1){
+    
+
+    $.ajax({
+        type:'get',
+        url:'/materia/delete?id='+id1,
+        data:null,
+        success:function(resp){
+            listarMaterias();
+        }
+    });
+    return false
+    
+}
+function editar(id1){
+    
+
+    $("#form-cargar-materias").load("/materia/formulariomateria?id="+id1);
+  
+
+}
+
+
+// Agregar la lista de examenes y el formulario de guardar
+listarMaterias();
+agregarFormu();
+ </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .general{
+            display: flex;
+            flex-direction: row;
+            background-color: aqua;
+            min-width: 100%;
+            min-height: 100vh;
+        }
+        .iz{background-color: blue;}
+        .de{background-color: red;}
+.iz,.de{
+width:50% ;
+height: 99vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+align-content: center;
+}
+.descripcion{
+    width: 400px;
+    height: 400px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 1em;
+    border: 1px solid black;
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+   display: none;
+
+}
+@media(max-width:500px){
+    .general{
+        flex-direction: column;
+    }
+    .iz,.de{
+width:100% ;
+height: 99vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+align-content: center;
+}
+}
+    </style>
+    <div class="general">
+<div class="iz">
+    <ul>
+        <li><button>JAVA</button></li>
+        <li><button>PHYTON</button></li>
+        <li><button>C#</button></li>
+        <li><button>JAVASCRIPT</button></li>
+    </ul>
+</div>
+<div class="de"></div>
+    </div>
+    <div class="descripcion">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde ducimus possimus laboriosam corporis, veniam, distinctio aspernatur est ex cum quo non, harum ipsam atque ut. Dolor, quia! Facere, molestiae quis!
+    </div>
+    <script>
+        function ver(){
+
+        }
+    </script>
+</body>
+</html>

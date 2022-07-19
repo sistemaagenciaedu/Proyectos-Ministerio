@@ -1,0 +1,67 @@
+********************************
+Ingles para el trabajo 
+********************************
+Server Azure
+********************************
+putty con uso de vpn
+IP private: 100.65.8.153
+SSH port: 22
+User: educacionuser
+Password: 5DFiNNYMuD#EsaGE
+Grant: sudo
+DNS public HML: az-lxinglesparaeltrabajo.eastus2.cloudapp.azure.com
+********************************
+Escritorio remoto con uso de vpn
+User: educacionuser
+Password: 
+
+********************************
+Database MYSQL
+pasos con comandos terminal para conectar
+comando superuser: sudo su
+les va pedir el password: 5DFiNNYMuD#EsaGE
+ahora conectamos a la base con el comando: mysql -u root -p
+les va a pedir el password: root
+------------------------------------------------------------
+ahora podemos codear como en mysql les dejo algunos comandos
+------------------------------------------------------------
+mostrar las bases de datos que contiene
+comando: show databases;
+------------------------------------------------------------
+OUTPUT
+
++--------------------+
+| Database           |
++--------------------+
+| baseinglesfinal    |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+5 rows in set (0.00 sec)
+
+------------------------------------------------------------
+usar una base en especifico 
+comando: use baseinglesfinal;
+------------------------------------------------------------
+OUTPUT
+
+Database changed
+------------------------------------------------------------
+mostar tablas de la base seleccionada
+comando: show tables;
+------------------------------------------------------------
+OUTPUT
+
++---------------------------+
+| Tables_in_baseinglesfinal |
++---------------------------+
+| examen                    |
+| ingresante                |
+| usuario                   |
++---------------------------+
+3 rows in set (0.01 sec)
+
+
